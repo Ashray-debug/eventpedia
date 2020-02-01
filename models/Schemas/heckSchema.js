@@ -18,7 +18,6 @@ var heckSchema = mongoose.Schema({
     ownerName : String,
     starredBy : Number,
     currentRegistered : Number,
-    maximumParticipants : Number,
     participants : [
         {
             type : mongoose.Schema.Types.ObjectId,

@@ -9,7 +9,7 @@ showIOT = (req,res)=>{
             res.flash("error","Some Error Occured!! Try Again Later")
             res.redirect("/")
         }else{
-            res.render("allHecksPage",{ title : "IOT Events", hecks : data[0].culturalEvents })
+            res.render("allHecksPage",{ title : "Cultural Events", hecks : data[0].culturalEvents })
         }
     })
 }

@@ -26,13 +26,14 @@ createEvent = (req,res)=>{
                 cashPrize : req.body.cashPrize,
                 entryFees : req.body.entryFees,
                 ownerName : req.user.username,
-                starredBy : 0
+                starredBy : 0,
+                currentRegistered : 0,
+                participants : []
             }
             if(req.body.techanical != undefined){
                 newHeck.categories.push("Techanical")
                 found[0].techanicalNumber += 1
                 techanical = true
-                console.log("techanical making it true")
             }if(req.body.cultural != undefined){
                 newHeck.categories.push("Cultural")
                 found[0].culturalNumber += 1
@@ -71,7 +72,6 @@ createEvent = (req,res)=>{
                                 found[0].openMicEvents.push(createdHeck)
                             }
                             if(techanical){
-                                console.log("techanical is true")
                                 found[0].techanicalEvents.push(createdHeck)
                             }
                             if(other){

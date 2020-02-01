@@ -26,7 +26,6 @@ const editUserData = require("./models/editData/editUserData")
 const createUser = require("./models/Index/signup")
 const starHeck = require("./models/HeckData/starHeck")
 const unstarHeck = require("./models/HeckData/unstarHeck")
-
 const showAllHecks = require("./models/ShowHecks/showAllHecks")
 const showTechnicalEvents = require("./models/ShowHecks/showTechnicalEvents")
 const showCulturalEvents = require("./models/ShowHecks/showCulturalEvents")
@@ -35,6 +34,10 @@ const showOpenMicEvents = require("./models/ShowHecks/showOpenMicEvents")
 const showOtherHecks = require("./models/ShowHecks/showotherHecks")
 const homeRoute = require("./models/Index/HomeRoute")
 const showAllSocieties = require("./models/ShowHecks/showAllSocieties")
+const registerToEvent = require("./models/HeckData/registerToEvent")
+const showRegisteredEvents = require('./models/ShowHecks/showRegisteredEvents')
+const showStarredEvents = require("./models/ShowHecks/showStarredEvents")
+const showPostedEvents = require("./models/ShowHecks/showPostedEvents")
 
 var categorySchema = require("./models/Schemas/categorySchema")
 var Category = mongoose.model("Category",categorySchema) 
@@ -133,47 +136,15 @@ app.get("/openMicEvents",showOpenMicEvents)
 app.get("/otherHecks",showOtherHecks)
 app.get("/showAllSocieties",showAllSocieties)
 
-app.get("/cal",(req,res)=>{
-    res.render("calenderView")
+app.get("/register/:username/:userId/toEvent/:eventId",isLoggedIn,registerToEvent)
+
+app.get("/registeredEventsOf-:userId",isLoggedIn,showRegisteredEvents)
+app.get("/starredEventsOf-:userId",isLoggedIn,showStarredEvents)
+app.get("/eventsPostedBy-:userId",isLoggedIn,showPostedEvents)
+
+app.get("/pay",(req,res)=>{
+    res.render("payment")
 })
-
-app.get('/init', function(req, res){
-	db.event.insert({ 
-		text:"My test event A", 
-		start_date: new Date(2018,8,1),
-		end_date:	new Date(2018,8,5)
-	});
-	db.event.insert({ 
-		text:"My test event B", 
-		start_date: new Date(2018,8,19),
-		end_date:	new Date(2018,8,24)
-	});
-	db.event.insert({ 
-		text:"Morning event", 
-		start_date: new Date(2018,8,4,4,0),
-		end_date:	new Date(2018,8,4,14,0)
-	});
-	db.event.insert({ 
-		text:"One more test event", 
-		start_date: new Date(2018,8,3),
-		end_date:	new Date(2018,8,8),
-		color: "#DD8616"
-	});
-
-	res.send("Test events were added to the database")
-});
-
-
-app.get('/data', function(req, res){
-	db.event.find().toArray(function(err, data){
-		//set id property for all records
-		for (var i = 0; i < data.length; i++)
-			data[i].id = data[i]._id;
-		
-		//output response
-		res.send(data);
-	});
-});
 
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){

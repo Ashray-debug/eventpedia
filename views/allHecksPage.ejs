@@ -1,7 +1,4 @@
-<%- include('./partials/header') %>
-    <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="./allHecks.css" >
- 
+<%- include('./partials/header') %> 
 <body>
     <!-- Header -->
 
@@ -30,12 +27,13 @@
 		</div>
 
 		<div class="row">
+        
             <% var i = 0 ; %>
             <% hecks.forEach((heck)=>{ %>
                 <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="<%=i*300%>">
                 <% if(heck.heckPoster != undefined){%>
                     <% var posterUrl = heck.heckPoster %>
-                    <% posterUrl = posterUrl.slice(6,posterUrl.length) %>	
+                    <% posterUrl = posterUrl.slice(7,posterUrl.length) %>	
                 <%}else{ %> 
                     <% var posterUrl = null %>	
                 <%} %>

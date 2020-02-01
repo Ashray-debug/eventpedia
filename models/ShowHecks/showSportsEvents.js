@@ -9,7 +9,7 @@ showML = (req,res)=>{
             res.flash("error","Some Error Occured!! Try Again Later")
             res.redirect("/")
         }else{
-            res.render("allHecksPage",{ title : "ML Events", hecks : data[0].sportsEvents })
+            res.render("allHecksPage",{ title : "Sports Events", hecks : data[0].sportsEvents })
         }
     })
 }

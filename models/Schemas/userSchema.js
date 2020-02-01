@@ -22,7 +22,12 @@ var userSchema = mongoose.Schema({
         }
     ],
     userType : String,
-    collegeName : String
+    collegeName : String,
+    registeredHecks : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Heck"
+    }],
+    numberOfRegisteredHecks : Number
 })
 
 userSchema.plugin(passportLocalMongoose)

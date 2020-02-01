@@ -9,7 +9,7 @@ showWeb = (req,res)=>{
             res.flash("error","Some Error Occured!! Try Again Later")
             res.redirect("/")
         }else{
-            res.render("allHecksPage",{ title : "Web Dev Events", hecks : data[0].techanicalEvents })
+            res.render("allHecksPage",{ title : "Techanical Events", hecks : data[0].techanicalEvents })
         }
     })
 }

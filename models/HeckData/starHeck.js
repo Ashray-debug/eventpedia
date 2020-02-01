@@ -28,10 +28,18 @@ starHeck = (req,res)=>{
                             foundUser.save((err,savedUser)=>{
                                 if(err){
                                     req.flash("error","Some Error Occured!!!")
+                                    res.redirect("/")
                                 }else{
-                                    req.flash("success","Heckothan Starred Successfully,Signin To Continue")
+                                    foundHeck.save((err,savedHeck)=>{
+                                        if(err){
+                                          req.flash("error","Some Error Occured!!!")
+                                          res.redirect("/")  
+                                        }else{
+                                            req.flash("success","Heckothan Starred Successfully,Signin To Continue")
+                                            res.redirect("/loggedIn")
+                                        }
+                                    })
                                 }
-                                res.redirect("/")
                             })
                         }
                     }

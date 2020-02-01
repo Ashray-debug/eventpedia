@@ -29,7 +29,7 @@ signup = (req,res)=>{
                                 res.redirect("/")
                             }else{
                                 User.register(new User({ email : req.body.email,mobile : req.body.mobile,joinedOn : Date.now(),username : req.body.username,
-                                    numberOfStarredHecks : 0,numberOfHecks : 0, userType : req.body.userType,collegeName : req.body.collegeName }),req.body.password,(err,user)=>{
+                                    numberOfStarredHecks : 0,numberOfHecks : 0, userType : req.body.userType,collegeName : req.body.collegeName,numberOfRegisteredHecks : 0 }),req.body.password,(err,user)=>{
                                     if(err){
                                         console.log(err)
                                         req.flash("error","Some Error Occured!!! Please Try Again Later")

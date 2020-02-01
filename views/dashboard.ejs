@@ -28,7 +28,7 @@
 									<div class="form-group row">
 										<label for="inputPassword" aria-required="true" class="col-sm-2 col-form-label">Username</label>
 										<div class="col-sm-10">
-											<input type="text" name="username" class="form-control" id="inputPassword"  value="<%=user.username%>" placeholder="Usename">
+											<input type="text" name="username" class="form-control" id="inputPassword"  value="" placeholder="Usename">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -58,10 +58,11 @@
 						<ul>
 							<li class="active" ><a href=""><i class="fa fa-user"></i> My Events</a></li>
 							<% if(user.userType == 'society'){ %>
-								<li><a href=""><i class="fa fa-file-archive-o"></i> Events Posted <span style="font-size: 1em"> <%= user.numberOfHecks %> </span></a></li>
+								<li><a href="/eventsPostedBy-<%=user.id%>" target="_blank"><i class="fa fa-file-archive-o"></i> Events Posted <span style="font-size: 1em"> <%= user.numberOfHecks %> </span></a></li>
 							<% } else { %>
-								<li><a href=""><i class="fa fa-bolt"></i> Starred Events <span style="font-size: 1em"> <%= user.numberOfStarredHecks %> </span></a></li>
-							<% } %>	
+								<li><a href="/registeredEventsOf-<%=user.id%>" target="_blank"><i class="fa fa-bolt"></i> Registered Events <span style="font-size: 1em"> <%= user.numberOfRegisteredHecks %> </span></a></li>
+								<li><a href="/starredEventsOf-<%=user.id%>" target="_blank"><i class="fa fa-bolt"></i> Starred Events <span style="font-size: 1em"> <%= user.numberOfStarredHecks %> </span></a></li>
+							<% } %>		
 						</ul>
 					</div>
 				</div>
@@ -232,6 +233,7 @@
 													<span><strong>Event on: </strong><time> <%= eachHeck.onDate.toString().slice(0,15) %> </time> </span>
 													<span class="location"><strong>Location</strong><%= eachHeck.place %></span>
 													<span><strong>Contact : </strong> <%=eachHeck.phone%> </span>
+													<span><strong>Registered : </strong> <%=eachHeck.currentRegistered%> </span>
 												</td>
 												<td class="action" data-title="Action">
 													<div class="">
@@ -249,7 +251,19 @@
 													<span> Prizes Worth : <%= eachHeck.entryFees %> </span>
 												</td>
 											</tr>
-										<%} %>
+											<% if(user.userType == "user"){ %>
+												<tr>
+													<td>
+														<% if(eachHeck.entryFees != 0){ %>
+																var link = "/register/" + <%=user.id%> + "/toEvent/" + <%=eachHeck.id%>
+														<% }else{ %>
+																var link = "/pay"
+														<%} %>
+														<a class="btn btn-danger" href="<%=link%>" style="color : white">Register</a>
+													</td>
+												</tr>
+											<% } %>
+										<% } %>
 										<% }%>
 									<% }) %>	
 								<% } %>
