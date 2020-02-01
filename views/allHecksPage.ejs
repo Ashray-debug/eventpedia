@@ -1,0 +1,62 @@
+<%- include('./partials/header') %>
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="./allHecks.css" >
+ 
+<body>
+    <!-- Header -->
+
+<section class="section-header bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="text-center">
+          <h1 class="text-capitalize mb-4 font-lg text-white"><%= title %></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <main>
+        <section class="section img-gallery border-top">
+	<div class="container">
+		<div class="row mb-5 align-items-center">
+			<div class="col-lg-4 text-center">
+				<h2 class="mt-3 mb-4">Lets check out some events</h2>
+			</div>
+			<div class="col-lg-8">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae veritatis in facere a cupiditate quibusdam sapiente rerum architecto facilis ab tempore accusantium laboriosam at porro, aut suscipit rem voluptate neque.</p>
+			</div>
+		</div>
+
+		<div class="row">
+            <% var i = 0 ; %>
+            <% hecks.forEach((heck)=>{ %>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="<%=i*300%>">
+                <% if(heck.heckPoster != undefined){%>
+                    <% var posterUrl = heck.heckPoster %>
+                    <% posterUrl = posterUrl.slice(6,posterUrl.length) %>	
+                <%}else{ %> 
+                    <% var posterUrl = null %>	
+                <%} %>
+                    <div style="background : blue;width : 40px;height : 35px;color : white;position : relative;bottom : -5px"> 
+                        <span> <%=heck.entryFees%>$ </span>
+                    </div>
+                    <a class="gallery-img popup-gallery" href="./<%=posterUrl%>">
+                        <img src="./<%=posterUrl%>" style="margin-top : -28px" alt="Poster" class="img-fluid">
+                    </a>
+                    <p style="font-size : 1em"><%=heck.eventName%> by <%=heck.ownerName%> <br>  Scheduled On : <%= heck.onDate.toString().slice(0,15) %> <br> 
+                    <% heck.categories.forEach((cat)=>{ %>
+                        <li class="list-inline-item">
+                            <a href="" style="font-size : 1.3em;text-decoration : underline"> <%= cat %> </a>
+                        </li>
+                    <% }) %>
+                    </p>
+                </div>
+                <% i = i + 1 %>
+            <% }) %>
+		</div>
+	</div>
+</section>
+</main>
+<%- include('./partials/footer.ejs') %>

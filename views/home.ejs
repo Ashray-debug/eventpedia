@@ -1,0 +1,374 @@
+<%- include('./partials/header') %>
+<body>
+  <!-- <div class="preloader">
+    <img src="images/preloader.gif" alt="preloader" class="img-fluid">
+  </div> -->
+
+
+<!--  Banner start -->
+<section class="slider-hero hero-slider  hero-style-1  ">
+  <div class="swiper-container swiper-container-horizontal">
+    <div class="swiper-wrapper">
+      <!-- start slide-item -->
+      <div class="swiper-slide slide-item">
+        <div class="slide-inner slide-bg-image main-sider-inner" data-background="images/first.jpeg">
+          <!-- <div class="overlay"></div> -->
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7">
+                <span data-swiper-parallax="300" class="text-primary font-extra font-md">Welcome to the Event</span>
+                <h1 class="mt-3 mb-5 text-lg text-white" data-swiper-parallax="400">Enjoy and Freshen up your mind by Music and Dance</h1>
+                <a href="showAllSocieties" class="btn btn-main mr-3" data-swiper-parallax="500">View Societies</a>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+      <!-- end slide-item -->
+      
+      <!-- start slide-item -->
+      <div class="swiper-slide slide-item">
+        <div class="slide-inner slide-bg-image main-sider-inner" data-background="images/second.jpeg">
+          <!-- <div class="overlay"></div> -->
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7">
+                <span data-swiper-parallax="300" class="text-primary font-extra font-md">Welcome to the Event</span>
+                <h1 class="mt-3 mb-5 text-lg text-white" data-swiper-parallax="400">Brush up your tech skills and win prizes</h1>
+                <a href="showAllSocieties" class="btn btn-main mr-3" data-swiper-parallax="500">View Societies</a>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+      <!-- end slide-item -->
+      
+      <!-- start slide-item -->
+      <div class="swiper-slide slide-item">
+        <div class="slide-inner slide-bg-image main-sider-inner" data-background="images/third.jpeg">
+          <!-- <div class="overlay"></div> -->
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7">
+                <span data-swiper-parallax="300" class="text-primary font-extra font-md">Welcome to the Event</span>
+                <h1 class="mt-3 mb-5 text-lg text-white" data-swiper-parallax="400">Code and stay healthy</h1>
+                <a href="showAllSocieties" class="btn btn-main mr-3" data-swiper-parallax="500">View Societies</a>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+    <!-- end swiper-wrapper -->
+    <!-- swipper controls -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</section>
+<!--  Banner End -->
+
+<!--  Intro start -->
+<section class="intro" style="margin-top : 5%">
+	<div class="container">
+		<div class="intro-wrap bg-white w-100">
+			<div class="row no-gutters">
+			<% var count = 0; %>
+			<% societyData.forEach((society)=>{ %>
+				<% if(count < 3){ %>
+				<div class="col-lg-4 col-md-4">
+					<div class="intro-item" data-aos="fade-up">
+						<i class="icofont-bulb-alt"></i>
+						<h3 class="mt-3"><%=society.username%></h3>
+						<p>College : <%=society.collegeName%> </p>
+					</div>
+				</div>
+
+				<% } %>
+			<% }) %>
+			
+				<div class="col-lg-4 col-md-4">
+					<div class="intro-item bg-gray " data-aos="fade-up" data-aos-delay="300">
+						<i class="icofont-computer"></i>
+						<h3 class="mt-3">MSC</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia animi ipsam obcaecati. </p>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-4">
+					<div class="intro-item" data-aos="fade-up" data-aos-delay="600">
+						<i class="icofont-squid"></i>
+						<h3 class="mt-3">OWASP</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia animi ipsam obcaecati. </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--  Intro End -->
+  
+<section class="section about">
+	<div class="container">
+		<div class="row  justify-content-center mb-5">
+			<div class="col-lg-8 text-center">
+				<span class="text-primary font-extra font-md">About Event</span>
+				<h2 class="mt-3 mb-4">Upcoming Hackathons/Events In Your College. </h2>
+			</div>
+		</div>
+		<div class="row">
+            <% if(allHecks != undefined){ %> 
+            <% var i = 0 ; %>
+            <% allHecks = allHecks.reverse() %>
+                <% allHecks.forEach((heck)=>{ %>
+                <% if(i < 3){ %>
+                 <div class="col-lg-4 col-md-4 mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="<%-i*300%>">
+                        <% if(heck.heckPoster != undefined){%>
+                            <% var posterUrl = heck.heckPoster %>
+                            <% posterUrl = posterUrl.slice(6,posterUrl.length) %>	
+                        <%}else{ %> 
+                            <% var posterUrl = null %>	
+                        <%} %>
+                        <a></a>
+                        <div style="background-color : blue;color : white;width : 40px;height : 30px;position : relative;bottom - 10px"> $<%=heck.entryFees%> </div>
+                        <img src="./<%=posterUrl%>" alt="" class="img-fluid" style="margin-top : -30px" >
+                        <div class="mt-3">
+                            <h3><%=heck.eventName%> by <%= heck.ownerName %> </h3>
+                            <p> Posted On : <%= heck.createdOn.toString().slice(0,15) %> <br> 
+                                Event On : <%= heck.onDate.toString().slice(0,15) %> <br>
+                                Place :<%= heck.place %>
+                            </p>
+                            <p>
+                                <a  href="showHeck/<%=heck.id%>" target="_blank" class="btn btn-outline-danger">More Details</a>
+                            </p>
+
+                        </div>
+                </div>  
+                <%} %>
+                <% i=i+1 %>
+                <% }) %>
+            <% } %>
+		</div>
+	</div>
+</section>
+<!-- About  End -->
+
+<!-- CTA start -->
+<section class="section cta">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+                <form action="/createUser" method="POST" id="signupForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label style="color : white" for="inputEmail4">Email</label>
+                            <input required style="color : white;border-color : white" type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color : white" for="inputEmail4">Usename</label>
+                            <input required style="color : white;border-color : white" type="text" class="form-control" name="username" id="inputEmail4" placeholder="Username">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color : white" for="inputPassword4">Password</label>
+                            <input required style="color : white;border-color : white" type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color : white" for="inputPassword4">Confirm Password</label>
+                            <input required style="color : white;border-color : white" type="password" class="form-control" name="confirmPassword" id="inputPassword4" placeholder="Confimr Password">
+                        </div>
+                         <div class="form-group col-md-6">
+                            <label style="color : white" for="inputEmail4">Phone</label>
+                            <input required style="color : white;border-color : white" type="number" class="form-control" name="mobile" id="inputEmail4" placeholder="Phone">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color : white" for="inputEmail4">Type</label>
+                            <select required name="userType" style="width : 100%;height : 60%">
+                                <option value="society">Society</option>
+                                <option value="user">User</option>
+                            </select>    
+                        </div>
+						<div class="form-group col-md-12">
+                            <label style="color : white" for="inputEmail4">College</label>
+                            <input required style="color : white;border-color : white" type="text" class="form-control" name="collegeName" id="inputEmail4" placeholder="Collge Name">
+                        </div>
+                    </div>
+                    <button style="margin-bottom : 3%;" type="submit" class="btn btn-primary">Sign in</button> <br>
+                        <a style="color : white" class="haveAccount">Already Have Account?</a>
+                </form>
+                  <form action="/login" method="POST" id="loginForm"  style="display : none">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label style="color : white" for="inputEmail4">Usename</label>
+                            <input required style="color : white;border-color : white" type="text" class="form-control" name="username" id="inputEmail4" placeholder="Username">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label style="color : white" for="inputPassword4">Password</label>
+                            <input required style="color : white;border-color : white" type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password">
+                        </div>
+                    </div>
+                    <button style="margin-bottom : 3%;" type="submit" class="btn btn-primary">Sign in</button> <br>
+                        <a style="color : white" class="haveAccount">Create An Account?</a>
+                </form>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- CTA  End -->
+
+<!-- DISHES start -->
+<section class="section menu">
+	<div class="container">
+		<div class="row  justify-content-center mb-5">
+			<div class="col-lg-8 text-center">
+				<span class="text-primary font-extra font-md">List Of All Events.</span>
+			<h2 class="mt-3 mb-4">Events In Which You Can Register And Participate And Can Compete With The Students In your College.</h2>
+			</div>
+		</div>
+
+		<div class="row shuffle-wrapper food-gallery">
+			<div class="col-lg-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;design&quot;,&quot;illustration&quot;]">
+				<div class="menu-item position-relative ">
+					<div class="d-flex align-items-center">
+						<img src="images/menu/menu-1.jpg" alt="" class="img-fluid mb-3 mb-lg-0">
+						<div>
+							<h4>Techanical - <span>  <%=category.techanicalNumber%> </span></h4>
+							<p><a class="btn btn-warning" href="technicalEvents" style="font-size : 1.3em;color : black">See All</a></p>	
+				
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col-lg-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;design&quot;,&quot;illustration&quot;]">
+				<div class="menu-item position-relative ">
+					<div class="d-flex align-items-center">
+						<img src="images/menu/menu-1.jpg" alt="" class="img-fluid mb-3 mb-lg-0">
+						<div>
+							<h4>Cultural - <span>  <%=category.culturalNumber%> </span></h4>
+							<p><a class="btn btn-success" href="culturalEvents" style="font-size : 1.3em;color : black">See All</a></p>	
+				
+						</div>
+					</div>
+				</div>
+			</div>	
+            <div class="col-lg-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;design&quot;,&quot;illustration&quot;]">
+				<div class="menu-item position-relative ">
+					<div class="d-flex align-items-center">
+						<img src="images/menu/menu-1.jpg" alt="" class="img-fluid mb-3 mb-lg-0">
+						<div>
+							<h4>Sports - <span>  <%=category.sportsNumber%> </span></h4>
+							<p><a class="btn btn-info" href="sportsEvents" style="font-size : 1.3em;color : black">See All</a></p>	
+				
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col-lg-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;design&quot;,&quot;illustration&quot;]">
+				<div class="menu-item position-relative ">
+					<div class="d-flex align-items-center">
+						<img src="images/menu/menu-1.jpg" alt="" class="img-fluid mb-3 mb-lg-0">
+						<div>
+							<h4>Open Mic - <span>  <%=category.openMicNumber%> </span></h4>
+							<p><a class="btn btn-primary" href="openMicEvents" style="font-size : 1.3em;color : black">See All</a></p>	
+				
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col-lg-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;design&quot;,&quot;illustration&quot;]">
+				<div class="menu-item position-relative ">
+					<div class="d-flex align-items-center">
+						<img src="images/menu/menu-1.jpg" alt="" class="img-fluid mb-3 mb-lg-0">
+						<div>
+							<h4>Others - <span>  <%=category.otherCategories%> </span></h4>
+							<p><a class="btn btn-danger" href="otherHecks" style="font-size : 1.3em;color : black">See All</a></p>	
+				
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 text-center mt-5">
+                <a href="allHecks" target="_blank" class="btn btn-main mr-3" data-swiper-parallax="500">View All Events</a>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- DISHES  End -->
+
+<!--App start -->
+<section class="section download">
+	<div class="container">
+		<div class="row ">
+			<div class="col-lg-10 col-md-12">
+				<div class="row align-items-center">
+					<div class="col-lg-6 col-md-6">
+						<!-- <img src="images/about/2-mbl.png" alt="" class="img-fluid"> -->
+
+
+						<!-- for change phone model follow this link: https://marvelapp.github.io/devices.css/ -->
+						<div class="marvel-device iphone-x">
+							<div class="notch">
+								<div class="camera"></div>
+								<div class="speaker"></div>
+							</div>
+							<div class="top-bar"></div>
+							<div class="sleep"></div>
+							<div class="bottom-bar"></div>
+							<div class="volume"></div>
+							<div class="overflow">
+								<div class="shadow shadow--tr"></div>
+								<div class="shadow shadow--tl"></div>
+								<div class="shadow shadow--br"></div>
+								<div class="shadow shadow--bl"></div>
+							</div>
+							<div class="inner-shadow"></div>
+							<div class="screen">
+								<!--<img src="images/CafeDine.jpg" alt="" class="img-fluid">-->
+								<video height="800" width="360" controls loop autoplay>
+  									<source src="VID_20180816_214146.mp4" type="video/mp4">
+									Your browser does not support the video tag.
+								</video>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6 col-md-6">
+						<span class="text-primary font-md font-extra">Make it easy</span>
+						<h2 class="mt-3">Get the Event App</h2>
+						<p class="mt-4">Get instant access to register in the event and get chance to win.</p>
+
+						<div class="mt-5">
+							<a href="#" target="_blank" class="btn-download active mb-2">
+								<i class="ti ti-android"></i>
+								<div class="btn-text">
+									<span>Get it on</span>
+									Google Play
+								</div>
+							</a>
+							<a href="#" target="_blank" class="btn-download">
+								<i class="ti ti-apple"></i>
+								<div class="btn-text">
+									<span>Get it on</span>
+									app store
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- App  End -->
+<%- include('./partials/footer') %>
+<script>
+	$(".haveAccount").click(()=>{
+		$("#signupForm").toggle()
+		$("#loginForm").toggle()
+	})
+	$(".createAccount").click(()=>{
+		$("#signupForm").toggle()
+		$("#loginForm").toggle()
+	})
+</script>
