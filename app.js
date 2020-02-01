@@ -7,6 +7,7 @@ const mongoose = require("mongoose")
 const methodOverride = require('method-override')
 const flash  = require("connect-flash")
 app.set("view engine","ejs")
+
 // mongoose.connect("mongodb+srv://admin-ashray:test123@ashray-8z4xs.mongodb.net/HeckProject" ,  { useUnifiedTopology: true,useNewUrlParser : true })
 const db = mongoose.connect("mongodb://localhost:27017/HeckProject" ,  { useUnifiedTopology: true,useNewUrlParser : true })
 mongoose.set('useFindAndModify', false);
@@ -141,10 +142,6 @@ app.get("/register/:username/:userId/toEvent/:eventId",isLoggedIn,registerToEven
 app.get("/registeredEventsOf-:userId",isLoggedIn,showRegisteredEvents)
 app.get("/starredEventsOf-:userId",isLoggedIn,showStarredEvents)
 app.get("/eventsPostedBy-:userId",isLoggedIn,showPostedEvents)
-
-app.get("/pay",(req,res)=>{
-    res.render("payment")
-})
 
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){

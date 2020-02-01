@@ -254,12 +254,7 @@
 											<% if(user.userType == "user"){ %>
 												<tr>
 													<td>
-														<% if(eachHeck.entryFees != 0){ %>
-																var link = "/register/" + <%=user.id%> + "/toEvent/" + <%=eachHeck.id%>
-														<% }else{ %>
-																var link = "/pay"
-														<%} %>
-														<a class="btn btn-danger" href="<%=link%>" style="color : white">Register</a>
+														<a class="btn btn-danger" href="/register/<%=user.username%>/<%=user.id%>/toEvent/<%=eachHeck.id%>" style="color : white">Register</a>
 													</td>
 												</tr>
 											<% } %>
