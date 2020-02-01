@@ -7,12 +7,12 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if(user == undefined){ %>
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <% }else{ %>
-                    <li class="nav-item"><a class="nav-link"  href="/loggedIn" >Home</a></li>
-                <% } %>
-                <li class="nav-item"><a class="nav-link" href="/aboutus" >About Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact" >Contact Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <% }else{ %>
+              <li class="nav-item"><a class="nav-link"  href="/loggedIn" >Home</a></li>
+          <% } %>
+          <li class="nav-item"><a class="nav-link" href="/aboutus" >About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact" >Contact Us</a></li>
     </ul>
      <% if(user != undefined){ %>
       <% if( user.userType == 'society'){ %>

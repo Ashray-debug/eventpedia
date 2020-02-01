@@ -4,7 +4,6 @@
     <img src="images/preloader.gif" alt="preloader" class="img-fluid">
   </div> -->
 
-
 <!--  Banner start -->
 <section class="slider-hero hero-slider  hero-style-1  ">
   <div class="swiper-container swiper-container-horizontal">
@@ -81,25 +80,8 @@
 						<p>College : <%=society.collegeName%> </p>
 					</div>
 				</div>
-
 				<% } %>
 			<% }) %>
-			
-				<div class="col-lg-4 col-md-4">
-					<div class="intro-item bg-gray " data-aos="fade-up" data-aos-delay="300">
-						<i class="icofont-computer"></i>
-						<h3 class="mt-3">MSC</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia animi ipsam obcaecati. </p>
-					</div>
-				</div>
-
-				<div class="col-lg-4 col-md-4">
-					<div class="intro-item" data-aos="fade-up" data-aos-delay="600">
-						<i class="icofont-squid"></i>
-						<h3 class="mt-3">OWASP</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia animi ipsam obcaecati. </p>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -117,7 +99,9 @@
 		<div class="row">
             <% if(allHecks != undefined){ %> 
             <% var i = 0 ; %>
-            <% allHecks = allHecks.reverse() %>
+             <% allHecks.sort(function(a, b) { %> 
+					<%   return new Date(a.onDate) - new Date(b.onDate);  %> 
+				<% }); %>
                 <% allHecks.forEach((heck)=>{ %>
                 <% if(i < 3){ %>
                  <div class="col-lg-4 col-md-4 mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="<%-i*300%>">
@@ -360,7 +344,9 @@
 		</div>
 	</div>
 </section>
+
 <!-- App  End -->
+
 <%- include('./partials/footer') %>
 <script>
 	$(".haveAccount").click(()=>{
