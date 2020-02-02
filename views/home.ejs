@@ -84,9 +84,12 @@
 				<% if(count < 3){ %>
 				<div class="col-lg-4 col-md-4" id="societyhover" >
 					<div class="intro-item" data-aos="fade-up">
+
+                    <a  href="./dashboardsociety-<%=society.id%>">
 						<i class="icofont-bulb-alt"></i>
 						<h3 class="mt-3"><%=society.username%></h3>
 						<p>College : <%=society.collegeName%> </p>
+                    </a>
 					</div>
 				</div>
 				<% } %>

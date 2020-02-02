@@ -120,7 +120,7 @@ app.get('/dashboardsociety-:id',(req,res)=>{
         if(err){
             res.send(err)
         }else{
-              res.render("dashboardsociety",{ society : user })
+              res.render("dashboardsociety",{ society : user,user : undefined })
         }
     })
 });
@@ -252,6 +252,24 @@ app.get("/register/:username/:userId/toEvent/:eventId",isLoggedIn,registerToEven
 app.get("/registeredEventsOf-:userId",isLoggedIn,showRegisteredEvents)
 app.get("/starredEventsOf-:userId",isLoggedIn,showStarredEvents)
 app.get("/eventsPostedBy-:userId",isLoggedIn,showPostedEvents)
+
+app.post("/findByLocation",(req,res)=>{
+    Heck.find({},(err,allData)=>{
+        if(err){
+            console.log(err)
+            req.flash("error",'Some Problem Occured!!! Please Try Again Later')
+            res.redirect("/loggedIn")
+        }else{
+            var data = []
+            allData.forEach((eachOne)=>{
+                if(eachOne.place.includes(req.body.location)){
+                    data.push(eachOne)
+                }
+            })
+            res.render('allHecksPage',{ title : "Events In " + req.body.location , hecks : data })
+        }
+    })
+})
 
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){

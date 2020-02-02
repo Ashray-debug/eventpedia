@@ -6,70 +6,35 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1 col-lg-4 offset-lg-0">
 				<div class="sidebar">
-					<!-- User Widget -->
-					<div class="widget user-dashboard-profile">
-						<!-- User Image -->
+					<!-- society Widget -->
+					<div class="widget society-dashboard-profile">
+						<!-- society Image -->
 						<div class="profile-thumb">
-							<% if(user.photo != undefined){ %> 
-								<% var imageUrl =user.photo %>
+							<% if(society.photo != undefined){ %> 
+								<% var imageUrl =society.photo %>
 								<% imageUrl = imageUrl.slice(7,imageUrl.length) %>
 								<% }else{ %>
 								<% var imageUrl = "https://image.flaticon.com/icons/svg/21/21104.svg" %>	
 							<% } %>
-							<img src="./<%=imageUrl%>" alt="no iag" class="rounded-circle">
+							<img src="./<%=imageUrl%>" style="width : 60%;height : 60%;margin-left : 20%" alt="no iag" class="rounded-circle">
 						</div>
-						<h5 class="text-center"><%= user.username %></h5>
-						<p>Joined <%= user.joinedOn.toString().slice(0,16) %></p>
-						<button style="color: white" class="btn-primary btn-lg editProfile">Edit Profile</button>
+						<h5 class="text-center"><%= society.username %></h5>
+						<p>Joined <%= society.joinedOn.toString().slice(0,16) %></p>
 					</div>
-					<div class="editProfilesForm" style="display:none">
-							<div>
-								<form method="POST" action="/uploadInfo/<%=user.id%>">
-									<div class="form-group row">
-										<label for="inputPassword" aria-required="true" class="col-sm-2 col-form-label">Username</label>
-										<div class="col-sm-10">
-											<input type="text" name="username" class="form-control" id="inputPassword"  value="" placeholder="Usename">
-										</div>
-									</div>
-									<div class="form-group row">
-										<label for="inputPassword" class="col-sm-2 col-form-label">Mobile</label>
-										<div class="col-sm-10">
-											<input type="number" aria-required="true" value="<%=user.mobile%>" name="mobile" value="<%=user.mobile%>" class="form-control" id="inputPassword" placeholder="Mobile Number">
-										</div>
-									</div>
-									<button class="btn-primary btn-sm btn-default btn-block" style="width: 100%;font-size : 1.7em;border-radius: 4%">Submit</button>
-									</form>
-							</div>
-							<div style="margin-top: 1em">
-								<form action="uploadPhoto/<%=user.id%>" method="POST" enctype="multipart/form-data">
-									<div class="form-group row">
-										<label for="inputPassword" class="col-sm-2 col-form-label">Photo</label>
-										<div class="col-sm-10">
-											<input type="file" name="photo" class="form-control" accept="image/x-png,image/gif,image/jpeg" id="inputPassword" placeholder="Password">
-										</div>
-									</div>	
-									<button class="btn-primary btn-sm btn-default btn-block" style="width: 100%;font-size : 1.7em;border-radius: 4%">Submit</button>
-								</form>
-							</div> 
-					</div>
-				
 					<!-- Dashboard Links -->
-					<div class="widget user-dashboard-menu">
+					<div class="widget society-dashboard-menu">
 						<ul>
-							<li class="active" ><a href=""><i class="fa fa-user"></i> My Events</a></li>
-							<% if(user.userType == 'society'){ %>
-								<li><a href="/eventsPostedBy-<%=user.id%>" target="_blank"><i class="fa fa-file-archive-o"></i> Events Posted <span style="font-size: 1em"> <%= user.numberOfHecks %> </span></a></li>
-							<% } else { %>
-								<li><a href="/registeredEventsOf-<%=user.id%>" target="_blank"><i class="fa fa-bolt"></i> Registered Events <span style="font-size: 1em"> <%= user.numberOfRegisteredHecks %> </span></a></li>
-								<li><a href="/starredEventsOf-<%=user.id%>" target="_blank"><i class="fa fa-bolt"></i> Starred Events <span style="font-size: 1em"> <%= user.numberOfStarredHecks %> </span></a></li>
-							<% } %>		
+								<li class="active" ><a href=""><i class="fa fa-user"></i> My Events</a></li>
+
+								<li><a href="/eventsPostedBy-<%=society.id%>" target="_blank"><i class="fa fa-file-archive-o"></i> Events Posted <span style="font-size: 1em"> <%= society.numberOfHecks %> </span></a></li>
+								
 						</ul>
 					</div>
 				</div>
 			</div>
 				<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
 					<!-- Recently Favorited -->
-				<% if(user.userType == 'society'){ %>
+				<% if(society.userType == 'society'){ %>
 					<div class="widget dashboard-container my-adslist">
 						<h3 class="widget-header">My Events</h3>
 						<table class="table table-responsive product-dashboard-table">
@@ -77,13 +42,12 @@
 								<tr>
 									<th>Poster</th>
 									<th>Product Title</th>
-									<th class="text-center">Action</th>
 									<th>Prizes</th>
 								</tr>
 							</thead>
 							<tbody>
-								<% if(user.hecks != undefined){%> 
-									<% user.hecks.forEach(function(eachHeck){ %>
+								<% if(society.hecks != undefined){%> 
+									<% society.hecks.forEach(function(eachHeck){ %>
 									<% if(eachHeck != null){ %>
 										<tr>
 											<td class="product-thumb">
@@ -96,9 +60,6 @@
 												<a href="showHeck/<%=eachHeck.id%>" target="_blank"> 
 													<img width="80px" height="auto" src="./<%=posterUrl%>" alt="no poster">
 												</a>
-												<% if(eachHeck.heckPoster != undefined){ %>
-														<a href="addPoster/To/<%=eachHeck._id%>">Edit Poster</a>
-												<% } %>
 											</td>		
 											<td class="product-details">
 												<a href="showHeck/<%=eachHeck.id%>" target="_blank"> 

@@ -30,8 +30,8 @@ addPhoto = (req,res)=>{
                         if(err){
                             res.send(err)
                         }else{
-                            req.flash("error","Please Signin To Continue")
-                            res.redirect("/")
+                            req.flash("success","Photo Successfully Added")
+                            res.redirect("/loggedIn")
                         }
                     })
                 }

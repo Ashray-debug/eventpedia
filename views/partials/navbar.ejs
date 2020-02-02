@@ -15,18 +15,18 @@
                 <% } %>
                 <li class="nav-item"><a class="nav-link" href="/aboutus" >About Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="/contact" >Contact Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="#login" >Login</a></li>
+       <form class="form-inline my-2 my-lg-0 col-sm-6" action="findByLocation" method="POST">
+            <input style="color : white" class="form-control mr-sm-2" type="search" placeholder="Location" name="location" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
     </ul>
      <% if(user != undefined){ %>
       <% if( user.userType == 'society'){ %>
           <ul class="navbar-nav ml-auto mt-10">
               <li class="nav-item"><a class="nav-link btn-dark" href="/addEvent" >Add Event</a></li>
           </ul>
-        <% }else{ %> 
-          <ul class="navbar-nav ml-auto mt-10">
-                <li class="nav-item"><a class="nav-link btn-dark" >Visit Events</a></li>
-            </ul>
-        <% }  %>
+        <% }else{ %>         <% }  %>
         <ul class="navbar-nav ml-auto mt-10">
             <li class="nav-item"><a class="nav-link btn-dark" href="logout">Logout</a></li>
         </ul>
