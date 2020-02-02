@@ -115,16 +115,14 @@ app.get('/pay',(req, res) => {
 });
 
 
-app.get('/dashboardsociety/:id',(req,res)=>{
-   Heck.findById(req.params.id,(err,foundHeck)=>{
-    if(err){
-        req.flash("error","Some Problem Occured!!! Please Try Again Later!!")
-        res.redirect("/")
-    }else{
-        console.log(foundHeck)
-        res.render("dashboardsociety",{ user : foundHeck })
-    }
-   })
+app.get('/dashboardsociety-:id',(req,res)=>{
+    User.findById(req.params.id).populate("hecks").exec((err,user)=>{
+        if(err){
+            res.send(err)
+        }else{
+              res.render("dashboardsociety",{ society : user })
+        }
+    })
 });
 
 app.post('/paystack/pay', (req, res) => {

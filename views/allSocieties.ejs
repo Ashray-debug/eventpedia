@@ -40,7 +40,7 @@
                 <%}else{ %> 
                     <% var posterUrl = null %>	
                 <%} %>
-                    <a  href="./dashboardsociety/<%=society.id%>">
+                    <a  href="./dashboardsociety-<%=society.id%>">
                         <img src="./<%=posterUrl%>" style="margin-top : -28px" alt="Poster" class="img-fluid">
                     </a>
                     <p style="font-size : 1em"><%=society.username%>  <br>  Joined On : <%= society.joinedOn.toString().slice(0,15) %> <br> 
