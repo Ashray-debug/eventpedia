@@ -1,13 +1,20 @@
 const express = require('express')
 const app = express()
 const bodyParser = require("body-parser")
+const pug = require('pug');
+const _ = require('lodash');
+const request = require('request');
 const passport = require("passport")
 const LocalStratergy = require("passport-local")
 const mongoose = require("mongoose")
 const methodOverride = require('method-override')
 const flash  = require("connect-flash")
 app.set("view engine","ejs")
+const editEvent = require("./models/HeckData/editEvent")
+const Nexmo = require('nexmo');
 
+const {Donor} = require('./models/donor')
+const {initializePayment, verifyPayment} = require('./config/paystack')(request);
 // mongoose.connect("mongodb+srv://admin-ashray:test123@ashray-8z4xs.mongodb.net/HeckProject" ,  { useUnifiedTopology: true,useNewUrlParser : true })
 const db = mongoose.connect("mongodb://localhost:27017/HeckProject" ,  { useUnifiedTopology: true,useNewUrlParser : true })
 mongoose.set('useFindAndModify', false);
@@ -71,8 +78,26 @@ app.use(bodyParser.urlencoded({extended : true}))
 app.get("/login",function(req,res){
     res.render("login",{showMessage : false,showError : false})
 })
+const nexmo = new Nexmo({
+  apiKey: '069d9c17',
+  apiSecret: 'fExnHyuCIYeomx8E',
+});
+const from = '919811959784';
+const text = 'You Have Successfully registered at TeekaLagao';
 
 app.get("/",homeRoute)
+app.get("/editEvent-:heckId",isLoggedIn,(req,res)=>{
+    Heck.findById(req.params.heckId,(err,heckData)=>{
+        if(err){
+            req.flash("error","Some Problem Occured!!!")
+            res.redirect("/loggedIn")
+        }else{
+            res.render("editEvent",{ user : req.user, heck : heckData })
+        }
+    })
+})
+
+app.post("/editEvent/:heckId",isLoggedIn,editEvent)
 
 app.get("/showHeck/:id",(req,res)=>{
     Heck.findById(req.params.id,(err,foundHeck)=>{
@@ -83,6 +108,89 @@ app.get("/showHeck/:id",(req,res)=>{
         }
     })
 })
+
+
+app.get('/pay',(req, res) => {
+    res.render('index.pug');
+});
+
+
+app.get('/dashboardsociety/:id',(req,res)=>{
+   Heck.findById(req.params.id,(err,foundHeck)=>{
+    if(err){
+        req.flash("error","Some Problem Occured!!! Please Try Again Later!!")
+        res.redirect("/")
+    }else{
+        console.log(foundHeck)
+        res.render("dashboardsociety",{ user : foundHeck })
+    }
+   })
+});
+
+app.post('/paystack/pay', (req, res) => {
+    const form = _.pick(req.body,['amount','email','full_name']);
+    form.metadata = {
+        full_name : form.full_name
+    }
+    form.amount *= 100;
+    initializePayment(form, (error, body)=>{
+        if(error){
+            //handle errors
+            console.log(error);
+            return res.redirect('/error')
+            return;
+        }
+        var response = JSON.parse(body);
+        res.redirect(response.data.authorization_url)
+    });
+});
+
+app.get('/paystack/callback', (req,res) => {
+    const ref = req.query.reference;
+    verifyPayment(ref, (error,body)=>{
+        if(error){
+            //handle errors appropriately
+            console.log(error)
+            return res.redirect('/error');
+        }
+        response = JSON.parse(body);        
+
+        const data = _.at(response.data, ['reference', 'amount','customer.email', 'metadata.full_name']);
+
+        [reference, amount, email, full_name] =  data;
+        
+        newDonor = {reference, amount, email, full_name}
+
+        const donor = new Donor(newDonor)
+
+        donor.save().then((donor)=>{
+            if(!donor){
+                return res.redirect('/error');
+            }
+            res.redirect('/receipt/'+donor._id);
+        }).catch((e)=>{
+            res.redirect('/error');
+        })
+    })
+});
+
+app.get('/receipt/:id', (req, res)=>{
+    const id = req.params.id;
+    Donor.findById(id).then((donor)=>{
+        if(!donor){
+            //handle error when the donor is not found
+            res.redirect('/error')
+        }
+        res.render('success',{donor : donor});
+    }).catch((e)=>{
+        res.redirect('/error')
+    })
+})
+
+app.get('/error', (req, res)=>{
+    res.render('error.pug');
+})
+
 
 app.post('/createUser',createUser)
 
@@ -103,6 +211,10 @@ app.get("/logout",(req,res)=>{
     req.logout()
     res.redirect("/")
 })
+app.get("/contact",(req,res)=>{
+    res.render('contact');
+});
+
 
 app.get("/addEvent",isLoggedIn,(req,res)=>{
     res.render("createEvent",{user : req.user})

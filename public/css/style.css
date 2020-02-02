@@ -175,7 +175,7 @@ h6, .h6 {
 }
 
 .section {
-  padding: 120px 0px;
+  padding: 70px 0px;
 }
 
 /* preloader */
@@ -1044,7 +1044,7 @@ textarea.form-control {
 
 .footer {
   background: #151515;
-  padding-bottom: 70px;
+  padding-bottom: 5px;
 }
 
 .footer .widget h4, .footer .widget h5 {

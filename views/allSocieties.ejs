@@ -25,7 +25,7 @@
 				<h2 class="mt-3 mb-4">Lets check out some societies</h2>
 			</div>
 			<div class="col-lg-8">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae veritatis in facere a cupiditate quibusdam sapiente rerum architecto facilis ab tempore accusantium laboriosam at porro, aut suscipit rem voluptate neque.</p>
+				<p>View all societies here</p>
 			</div>
 		</div>
 
@@ -40,7 +40,7 @@
                 <%}else{ %> 
                     <% var posterUrl = null %>	
                 <%} %>
-                    <a class="gallery-img popup-gallery" href="./<%=posterUrl%>">
+                    <a  href="./dashboardsociety/<%=society.id%>">
                         <img src="./<%=posterUrl%>" style="margin-top : -28px" alt="Poster" class="img-fluid">
                     </a>
                     <p style="font-size : 1em"><%=society.username%>  <br>  Joined On : <%= society.joinedOn.toString().slice(0,15) %> <br> 

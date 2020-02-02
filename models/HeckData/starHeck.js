@@ -19,8 +19,8 @@ starHeck = (req,res)=>{
                         res.redirect("loggedIn")
                     }else{
                         if(foundUser.starredHecks.includes(foundHeck.id)){
-                            req.flash("error","This Heckothan Is Already Starred, Signin To Continue")
-                            res.redirect("/")
+                            req.flash("error","This Heckothan Is Already Starred")
+                            res.redirect("/loggedIn")
                         }else{
                             foundHeck.starredBy += 1
                             foundUser.starredHecks.push(foundHeck)

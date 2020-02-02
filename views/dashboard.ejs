@@ -113,13 +113,14 @@
 												<div class="">
 													<ul class="list-inline justify-content-center">
 														<li class="list-inline-item">
-															<a class="edit" href="editHeck/<%=eachHeck._id%>/of/<%=eachHeck.username._id%>">
+															
+																<a class="edit" href="editEvent-<%=eachHeck._id%>">
 																<i class="fa fa-pencil"></i>
 															</a>		
 														</li>
 														<li class="list-inline-item">
 															<a class="delete" href="deleteHeck/<%=eachHeck._id%>/of/<%=user.id%>">
-																<i class="fa fa-trash"></i>
+																<i class="fa fa-trash" onclick="alert('Successfully deleted')"></i>
 															</a>
 														</li> <br>
 														<% if(eachHeck.heckPoster == undefined){ %> 
@@ -254,7 +255,12 @@
 											<% if(user.userType == "user"){ %>
 												<tr>
 													<td>
-														<a class="btn btn-danger" href="/register/<%=user.username%>/<%=user.id%>/toEvent/<%=eachHeck.id%>" style="color : white">Register</a>
+														<% if(eachHeck.entryFees != 0){ %>
+															<% var link = '/pay' %>
+														 <%}else{ %>
+														 	<% var link = "/register/" + user.username + "/" +  user.id + "/toEvent/" +eachHeck.id %>
+														 <% } %>
+														<a class="btn btn-danger" href="<%=link%>" style="color : white">Register</a>
 													</td>
 												</tr>
 											<% } %>

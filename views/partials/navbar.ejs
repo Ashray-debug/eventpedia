@@ -1,5 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="#" style="color : white;font-size : 1.8em">Event Pedia</a>
+<nav class="navbar navbar-expand-lg navbar-dark" >
+  <img src="images/logo.png" width=40 height=40 style="padding:5px"></img>
+  <a class="navbar-brand" href="/" style="color : white;font-size : 1.8em">Event Pedia</a>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,25 +9,26 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if(user == undefined){ %>
-          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-          <% }else{ %>
-              <li class="nav-item"><a class="nav-link"  href="/loggedIn" >Home</a></li>
-          <% } %>
-          <li class="nav-item"><a class="nav-link" href="/aboutus" >About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact" >Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <% }else{ %>
+                    <li class="nav-item"><a class="nav-link"  href="/loggedIn" >Home</a></li>
+                <% } %>
+                <li class="nav-item"><a class="nav-link" href="/aboutus" >About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact" >Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="#login" >Login</a></li>
     </ul>
      <% if(user != undefined){ %>
       <% if( user.userType == 'society'){ %>
           <ul class="navbar-nav ml-auto mt-10">
-              <li class="nav-item"><a class="nav-link add-button" href="/addEvent" >Add Event</a></li>
+              <li class="nav-item"><a class="nav-link btn-dark" href="/addEvent" >Add Event</a></li>
           </ul>
         <% }else{ %> 
           <ul class="navbar-nav ml-auto mt-10">
-                <li class="nav-item"><a class="nav-link add-button" >Visit Events</a></li>
+                <li class="nav-item"><a class="nav-link btn-dark" >Visit Events</a></li>
             </ul>
         <% }  %>
         <ul class="navbar-nav ml-auto mt-10">
-            <li class="nav-item"><a class="nav-link btn-danger" href="logout">Logout</a></li>
+            <li class="nav-item"><a class="nav-link btn-dark" href="logout">Logout</a></li>
         </ul>
     <%} %>
   </div>

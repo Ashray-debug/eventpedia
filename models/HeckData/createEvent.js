@@ -11,9 +11,10 @@ var sports = false, cultural = false, openMic = false, arduino = false,other = f
 createEvent = (req,res)=>{
     Category.find({},(err,found)=>{
         if(err){
-            res.send(err)
+            console.log(err)
+            req.flash("error","Some Problem Occured!!! Please Try Again Later")
+            res.redirect("/")
         }else{
-            console.log(req.body.cashPrize)
             var newHeck = {
                 username : req.user,
                 eventName : req.body.heckName,
@@ -58,7 +59,9 @@ createEvent = (req,res)=>{
                 }else{
                     User.findById(req.user.id,(err,foundUser)=>{
                         if(err){
-                            res.send(err)
+                            console.log(err)
+                            req.flash("error","Some Problem Occured!!! Please Try Again Later")
+                            res.redirect("/")
                         }else{
                             foundUser.hecks.push(createdHeck)
                             foundUser.numberOfHecks += 1
@@ -79,11 +82,15 @@ createEvent = (req,res)=>{
                             }
                             foundUser.save((err,savedUser)=>{
                                 if(err){
-                                    res.send(err)
+                                    console.log(err)
+                                    req.flash("error","Some Problem Occured!!! Please Try Again Later")
+                                    res.redirect("/")
                                 }else{
                                     found[0].save((err,savedC)=>{
                                         if(err){
-                                            res.send(err)
+                                            console.log(err)
+                                            req.flash("error","Some Problem Occured!!! Please Try Again Later")
+                                            res.redirect("/")
                                         }else{
                                             req.flash("success","Event Created Successfully")
                                             res.redirect("loggedIn")
