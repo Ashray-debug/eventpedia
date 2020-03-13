@@ -16,7 +16,7 @@ const Nexmo = require('nexmo');
 const {Donor} = require('./models/donor')
 const {initializePayment, verifyPayment} = require('./config/paystack')(request);
 // mongoose.connect("mongodb+srv://admin-ashray:test123@ashray-8z4xs.mongodb.net/HeckProject" ,  { useUnifiedTopology: true,useNewUrlParser : true })
-const db = mongoose.connect("mongodb://localhost:27017/HeckProject" ,  { useUnifiedTopology: true,useNewUrlParser : true })
+const db = mongoose.connect("mongodb+srv://admin-ashray:test123@ashray-8z4xs.mongodb.net/HeckProject" ,  { useUnifiedTopology: true,useNewUrlParser : true })
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 // models =============================
@@ -280,9 +280,9 @@ function isLoggedIn(req,res,next){
 }
 
 let port = process.env.PORT;
-if(port==null || port ==""){
+if (port == null || port == ""){
     port=3000;
 }
 app.listen(port,()=>{
     console.log("server at 3000") 
-}
+})
