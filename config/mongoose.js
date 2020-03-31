@@ -1,5 +1,6 @@
+  
 const mongoose = require ('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/online_payment',{useNewUrlParser:true});
+mongoose.connect('mongodb+srv://admin-ashray:test123@ashray-8z4xs.mongodb.net/test?retryWrites=true',{useUnifiedTopology: true,useNewUrlParser:true});
 
 module.exports = {mongoose}

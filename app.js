@@ -15,8 +15,7 @@ const Nexmo = require('nexmo');
 
 const {Donor} = require('./models/donor')
 const {initializePayment, verifyPayment} = require('./config/paystack')(request);
-// mongoose.connect("mongodb+srv://admin-ashray:test123@ashray-8z4xs.mongodb.net/HeckProject" ,  { useUnifiedTopology: true,useNewUrlParser : true })
-const db = mongoose.connect("mongodb+srv://admin-ashray:test123@ashray-8z4xs.mongodb.net/HeckProject" ,  { useUnifiedTopology: true,useNewUrlParser : true })
+mongoose.connect('mongodb+srv://admin-ashray:test123@ashray-8z4xs.mongodb.net/test?retryWrites=true',{useUnifiedTopology: true,useNewUrlParser:true});
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 // models =============================
@@ -24,6 +23,8 @@ userSchema = require("./models/Schemas/userSchema")
 User = mongoose.model("User",userSchema)
 heckSchema = require("./models/Schemas/heckSchema")
 Heck = mongoose.model("Heck",heckSchema)
+contactSchema = require("./models/Schemas/contactSchema")
+Contact =mongoose.model("Contact",contactSchema)
 // routes  ============================
 const addPosterToEvent = require("./models/HeckData/addPosterToEvent")
 const createEvent = require("./models/HeckData/createEvent")
@@ -82,8 +83,8 @@ const nexmo = new Nexmo({
   apiKey: '069d9c17',
   apiSecret: 'fExnHyuCIYeomx8E',
 });
-const from = '919811959784';
-const text = 'You Have Successfully registered at TeekaLagao';
+const from = '8053934507';
+const text = 'You Have Successfully registered at EventPedia';
 
 app.get("/",homeRoute)
 app.get("/editEvent-:heckId",isLoggedIn,(req,res)=>{
@@ -189,6 +190,19 @@ app.get('/error', (req, res)=>{
     res.render('error.pug');
 })
 
+app.post('/mail',function(req,res){
+   var feedback=new Contact({
+   name: req.body.name,
+   subject: req.body.subject,
+   email:req.body.email,
+   message:req.body.message,
+   phone: req.body.phone 
+  });
+    feedback.save(function(err, doc){
+    if(err) res.json(err);
+    else  {res.send('Thanks for giving your valuable feedback');}
+  });
+});
 
 app.post('/createUser',createUser)
 
@@ -280,9 +294,9 @@ function isLoggedIn(req,res,next){
 }
 
 let port = process.env.PORT;
-if (port == null || port == ""){
+if(port==null || port ==""){
     port=3000;
 }
 app.listen(port,()=>{
     console.log("server at 3000") 
-})
+});

@@ -21,7 +21,7 @@ home = (req,res)=>{
             }else{
                 if(found == undefined || found.length == 0){
                     Category.create({
-                        culturalNumber : 0, techanicalNumber : 0, sportsNumber : 0, openMicNumber : 0, otherCategories : 0,
+                        culturalNumber : 5, techanicalNumber : 5, sportsNumber : 0, openMicNumber : 0, otherCategories : 0,
                         techanicalEvents : [], culturalEvents : [], sportsEvents : [], openMicEvents : [], otherEvents : []
                             },(err,created)=>{
                                 if(err){

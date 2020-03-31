@@ -1,5 +1,4 @@
 var mongoose = require("mongoose")
-var passportLocalMongoose = require("passport-local-mongoose")
 var heckSchema = mongoose.Schema({
     eventName : String,
     place : String,
@@ -26,5 +25,4 @@ var heckSchema = mongoose.Schema({
     ]
 })
 
-heckSchema.plugin(passportLocalMongoose)
 module.exports = heckSchema
